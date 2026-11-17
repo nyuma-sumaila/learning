@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoTech - Laptops, Phones & Accessories in Bo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      body {
+        background: #f1f1f1;
+        padding-bottom: 80px;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .topbar {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+      }
+      .menu {
+        font-size: 26px;
+        cursor: pointer;
+      }
+      .logo {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        flex: 1;
+      }
+      .logo span {
+        color: #f68b1e;
+      }
+      .icons {
+        font-size: 24px;
+        display: flex;
+        gap: 14px;
+        cursor: pointer;
+        position: relative;
+      }
+      #cartCount {
+        position: absolute;
+        top: -8px;
+        right: -6px;
+        background: #f68b1e;
+        color: #fff;
+        font-size: 11px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* SEARCH BAR */
+      .search-wrap {
+        background: #fff;
+        padding: 0 14px 12px;
+      }
+      .search {
+        background: #f1f1f1;
+        border-radius: 25px;
+        padding: 12px 14px;
+        display: flex;
+        gap: 8px;
+        color: #666;
+        font-size: 14px;
+      }
+      .search input {
+        border: none;
+        background: transparent;
+        outline: none;
+        width: 100%;
+        font-size: 14px;
+      }
+
+      .hero {
+        margin: 12px 14px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #1a0a2e;
+        color: #fff;
+        display: flex;
+        min-height: 180px;
+        position: relative;
+      }
+      .hero-text {
+        padding: 18px;
+        flex: 1.2;
+        z-index: 2;
+      }
+      .hero-text small {
+        opacity: 0.8;
+      }
+      .hero-text h2 {
+        font-size: 28px;
+        line-height: 1.1;
+        margin: 4px 0;
+      }
+      .hero-text h2 span {
+        color: #ffcc00;
+      }
+      .hero-text p {
+        font-weight: 700;
+        margin-top: 8px;
+      }
+      .hero button {
+        margin-top: 14px;
+        background: #fff;
+        border: none;
+        padding: 9px 16px;
+        border-radius: 20px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .hero img {
+        width: 45%;
+        object-fit: cover;
+      }
+
+      .dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin: 8px 0;
+      }
+      .dots span {
+        width: 8px;
+        height: 8px;
+        background: #bbb;
+        border-radius: 20px;
+      }
+      .dots span.active {
+        width: 24px;
+        background: #333;
+      }
+
+      /* PROMO CARDS - BUY 2 GET 1 */
+      .promo-row {
+        display: flex;
+        gap: 12px;
+        padding: 0 14px;
+      }
+      .promo {
+        flex: 1;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #333;
+        color: #fff;
+        min-height: 160px;
+        padding: 14px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .promo.light {
+        background: #fff;
+        color: #111;
+        border: 1px solid #ddd;
+      }
+      .promo h3 {
+        font-size: 18px;
+        line-height: 1.2;
+      }
+      .promo .big {
+        font-size: 30px;
+        font-weight: 900;
+        line-height: 1;
+      }
+      .promo .tag {
+        background: #fff;
+        color: #000;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 6px 10px;
+        border-radius: 20px;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .promo.light .tag {
+        background: #111;
+        color: #fff;
+      }
+
+      /* FLASH SALES */
+      .flash {
+        background: #e4002b;
+        margin: 16px 14px 0;
+        border-radius: 14px 14px 0 0;
+        color: #fff;
+        padding: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .flash h2 {
+        font-size: 22px;
+      }
+      .timer {
+        background: #fff;
+        color: #111;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .flash-arrow {
+        background: #fff;
+        color: #e4002b;
+        width: 38px;
+        height: 38px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+      }
+
+      .products {
+        background: #fff;
+        margin: 0 14px;
+        border-radius: 0 0 14px 14px;
+        padding: 12px;
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+      }
+      .card {
+        min-width: 150px;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .card img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+      }
+      .card-body {
+        padding: 8px;
+        position: relative;
+      }
+      .card-body h4 {
+        font-size: 13px;
+        height: 32px;
+        overflow: hidden;
+      }
+      .price {
+        color: #f68b1e;
+        font-weight: 900;
+        margin-top: 6px;
+      }
+      .old {
+        color: #999;
+        text-decoration: line-through;
+        font-size: 12px;
+        font-weight: 400;
+      }
+      .stock {
+        color: #b8860b;
+        font-size: 11px;
+        font-weight: 700;
+        margin-top: 4px;
+      }
+      .add-btn {
+        position: absolute;
+        top: -18px;
+        right: 8px;
+        background: #111;
+        color: #fff;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      /* CATEGORIES */
+      .section {
+        padding: 16px 14px 0;
+      }
+      .section h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .cats {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+      }
+      .cat {
+        min-width: 80px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px 6px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid #eee;
+      }
+      .cat span {
+        font-size: 26px;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      /* ALL PRODUCTS GRID */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        padding: 12px 14px;
+      }
+      .grid .card {
+        min-width: auto;
+      }
+      .grid .card img {
+        height: 130px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #111;
+        color: #fff;
+        padding: 20px 14px;
+        margin-top: 20px;
+        text-align: center;
+      }
+      footer p {
+        font-size: 13px;
+        opacity: 0.8;
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+      footer button {
+        background: #f68b1e;
+        border: none;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 20px;
+        font-weight: 700;
+        margin-top: 12px;
+        cursor: pointer;
+      }
+
+      /* BOTTOM NAV FOR PHONE */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 0;
+        border-top: 1px solid #ddd;
+        font-size: 12px;
+        text-align: center;
+        z-index: 100;
+      }
+      .bottom-nav div {
+        cursor: pointer;
+      }
+      .bottom-nav span {
+        display: block;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="menu" onclick="alert('Menu - Add categories here')">☰</div>
+      <div class="logo">Bo<span>Tech</span> ★</div>
+      <div class="icons">
+        <span>👤</span>
+        <span onclick="alert('You have ' + cart + ' items in cart')"
+          >🛒 <b id="cartCount">0</b></span
+        >
+      </div>
+    </header>
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+      <div class="search">
+        🔍
+        <input
+          type="text"
+          id="searchBox"
+          placeholder="Search laptops, phones and accessories"
+          onkeyup="searchProduct()"
+        />
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">
+        <small>Up to</small>
+        <h2>SLE 500 <span>off</span></h2>
+        <small>at checkout • T&Cs apply</small>
+        <p>Today Only<br />12 noon</p>
+        <button onclick="scrollToProducts()">Shop Now →</button>
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500"
+        alt="Laptop"
+      />
+    </div>
+    <div class="dots">
+      <span class="active"></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- PROMO ROW -->
+    <div class="promo-row">
+      <div class="promo">
+        <div>
+          <small>Buy 2, Pay 1</small>
+          <h3>BUY 2<br />GET 1</h3>
+        </div>
+        <div class="tag">UP TO 50% OFF</div>
+      </div>
+      <div class="promo light">
+        <div>
+          <h3>BoTech<br />FORCE</h3>
+          <div class="big">MAKE EXTRA<br />CASH</div>
+        </div>
+        <div class="tag">JOIN NOW</div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES -->
+    <div class="section">
+      <h2>Shop By Category</h2>
+      <div class="cats">
+        <div class="cat" onclick="filterCat('Laptop')">
+          <span>💻</span>Laptops
+        </div>
+        <div class="cat" onclick="filterCat('Phone')">
+          <span>📱</span>Phones
+        </div>
+        <div class="cat" onclick="filterCat('Headphone')">
+          <span>🎧</span>Audio
+        </div>
+        <div class="cat" onclick="filterCat('Watch')">
+          <span>⌚</span>Watches
+        </div>
+        <div class="cat" onclick="filterCat('Charger')">
+          <span>🔌</span>Chargers
+        </div>
+        <div class="cat" onclick="filterCat('')"><span>✨</span>All</div>
+      </div>
+    </div>
+
+    <!-- FLASH SALES -->
+    <div class="flash">
+      <div>
+        <h2>Flash Sales</h2>
+        <span class="timer">⏰ <span id="timer">01 : 59 : 55</span></span>
+      </div>
+      <div class="flash-arrow">→</div>
+    </div>
+
+    <div class="products" id="flashProducts"></div>
+
+    <!-- ALL PRODUCTS -->
+    <div class="section" id="allProductsTitle"><h2>All Tech Products</h2></div>
+    <div class="grid" id="productGrid"></div>
+
+    <footer>
+      <h3>BoTech - Bo, Sierra Leone</h3>
+      <p>
+        We deliver laptops, phones and accessories across Bo, Kenema and
+        Freetown.<br />Pay with Cash, Orange Money or Afrimoney.<br />WhatsApp:
+        +232 76 000 000
+      </p>
+      <button onclick="alert('WhatsApp us to order!')">
+        Order On WhatsApp
+      </button>
+    </footer>
+
+    <div class="bottom-nav">
+      <div><span>🏠</span>Home</div>
+      <div><span>📂</span>Categories</div>
+      <div><span>🛒</span>Cart</div>
+      <div><span>👤</span>Account</div>
+    </div>
+
+    <script>
+      // YOUR PRODUCTS - Change names, prices and images here
+      const products = [
+        {
+          name: "HP ProBook Laptop 14 inch",
+          price: 8500,
+          old: 10200,
+          stock: 8,
+          cat: "Laptop",
+          img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500",
+        },
+        {
+          name: "Tecno Spark 20 Phone",
+          price: 2850,
+          old: 3200,
+          stock: 39,
+          cat: "Phone",
+          img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500",
+        },
+        {
+          name: "Wireless Bluetooth Headphone",
+          price: 450,
+          old: 600,
+          stock: 42,
+          cat: "Headphone",
+          img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
+        },
+        {
+          name: "Smart Watch Series 8",
+          price: 950,
+          old: 1200,
+          stock: 15,
+          cat: "Watch",
+          img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500",
+        },
+        {
+          name: "HP 65W Laptop Charger",
+          price: 350,
+          old: 450,
+          stock: 25,
+          cat: "Charger",
+          img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500",
+        },
+        {
+          name: "Dell Inspiron Laptop 15",
+          price: 9200,
+          old: 11000,
+          stock: 12,
+          cat: "Laptop",
+          img: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500",
+        },
+        {
+          name: "Samsung Galaxy A15",
+          price: 3600,
+          old: 4100,
+          stock: 20,
+          cat: "Phone",
+          img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500",
+        },
+        {
+          name: "AirPods Pro Earbuds",
+          price: 750,
+          old: 950,
+          stock: 30,
+          cat: "Headphone",
+          img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500",
+        },
+      ];
+
+      let cart = 0;
+
+      function showProducts(list, elementId) {
+        const box = document.getElementById(elementId);
+        box.innerHTML = "";
+        list.forEach((p) => {
+          box.innerHTML += `
+        <div class="card">
+          <img src="${p.img}" alt="${p.name}">
+          <div class="card-body">
+            <button class="add-btn" onclick="addToCart()">+</button>
+            <h4>${p.name}</h4>
+            <div class="price">SLE ${p.price.toLocaleString()} <span class="old">SLE ${p.old.toLocaleString()}</span></div>
+            <div class="stock">${p.stock} items in stock</div>
+          </div>
+        </div>`;
+        });
+      }
+
+      // Show first 4 as Flash Sales, all as Grid
+      showProducts(products.slice(0, 4), "flashProducts");
+      showProducts(products, "productGrid");
+
+      function addToCart() {
+        cart++;
+        document.getElementById("cartCount").innerText = cart;
+        alert("Added to cart! Total: " + cart);
+      }
+
+      function searchProduct() {
+        let word = document.getElementById("searchBox").value.toLowerCase();
+        let filtered = products.filter((p) =>
+          p.name.toLowerCase().includes(word),
+        );
+        showProducts(filtered, "productGrid");
+        document.getElementById("allProductsTitle").innerHTML =
+          "<h2>Search Results: " + filtered.length + " found</h2>";
+      }
+
+      function filterCat(cat) {
+        if (cat === "") {
+          showProducts(products, "productGrid");
+          return;
+        }
+        let filtered = products.filter((p) => p.cat === cat);
+        showProducts(filtered, "productGrid");
+      }
+
+      function scrollToProducts() {
+        document
+          .getElementById("allProductsTitle")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // FLASH SALES COUNTDOWN - 1 hour 59 mins 55 secs
+      let total = 1 * 3600 + 59 * 60 + 55;
+      setInterval(() => {
+        total--;
+        if (total < 0) total = 7199;
+        let h = Math.floor(total / 3600);
+        let m = Math.floor((total % 3600) / 60);
+        let s = total % 60;
+        document.getElementById("timer").innerText =
+          String(h).padStart(2, "0") +
+          " : " +
+          String(m).padStart(2, "0") +
+          " : " +
+          String(s).padStart(2, "0");
+      }, 1000);
+    </script>
+  </body>
+</html>
